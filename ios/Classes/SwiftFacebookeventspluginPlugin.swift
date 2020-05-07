@@ -7,43 +7,31 @@ public class SwiftFacebookeventspluginPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "facebookeventsplugin", binaryMessenger: registrar.messenger())
     let instance = SwiftFacebookeventspluginPlugin()
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
-    override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let handled =  ApplicationDelegate.shared.application(app, open: url, options: options)
-        // Add any custom logic here.
-
-        return handled
-    }
-      override func applicationDidBecomeActive(_ application: UIApplication) {
-          AppEvents.activateApp()
-          AppEvents.logEvent(AppEvents.Name.init("openApp"))
-      }
 
 
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
             switch call.method {
             case "logEvent":
-                self?.handleLogEvent(call: call, result: result)
+                handleLogEvent(call: call, result: result)
                 result(nil)
             case "logPurchase":
-                self?.handlePurchaseEvent(call: call, result: result)
+                handlePurchaseEvent(call: call, result: result)
                 result(nil)
             case "setUserId":
-                self?.handleSetUserId(call: call, result: result)
+                handleSetUserId(call: call, result: result)
                 result(nil)
             case "clearUserData":
-                self?.handleClearUserData(call: call, result: result)
+                handleClearUserData(call: call, result: result)
                 result(nil)
             case "addToCart":
-                self?.handleAddToCartEvent(call: call, result: result)
+                handleAddToCartEvent(call: call, result: result)
                 result(nil)
             case "initiateCheckout":
-                self?.handleInitiateCheckoutEvent(call: call, result: result)
+                handleInitiateCheckoutEvent(call: call, result: result)
                 result(nil)
             default:
                 result(FlutterMethodNotImplemented)

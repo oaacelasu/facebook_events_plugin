@@ -17,8 +17,8 @@ A new Flutter plugin.
   s.public_header_files = 'Classes/**/*.h'
     s.static_framework = true
   s.dependency 'Flutter'
-  s.dependency 'FacebookCore', '~> 5.0'
-  s.dependency 'FBSDKCoreKit', '~> 5.0'
+  s.dependency 'FacebookCore'
+  s.dependency 'FBSDKCoreKit'
 
 
   s.platform = :ios, '10.3'
