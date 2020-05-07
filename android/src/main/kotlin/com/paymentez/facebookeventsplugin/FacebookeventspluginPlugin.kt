@@ -10,6 +10,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import com.facebook.appevents.AppEventsLogger
+import com.facebook.FacebookSdk
+
 import java.math.BigDecimal
 import java.util.*
 /** FacebookeventspluginPlugin */
@@ -23,7 +25,8 @@ public class FacebookeventspluginPlugin: FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "facebookeventsplugin")
     logger = AppEventsLogger.newLogger(flutterPluginBinding.applicationContext)
-
+    FacebookSdk.setAutoInitEnabled(true)
+    FacebookSdk.fullyInitialize()
     channel.setMethodCallHandler(this);
   }
 
@@ -37,11 +40,14 @@ public class FacebookeventspluginPlugin: FlutterPlugin, MethodCallHandler {
   // depending on the user's project. onAttachedToEngine or registerWith must both be defined
   // in the same class.
   companion object {
+    private lateinit var logger: AppEventsLogger
+
     @JvmStatic
     fun registerWith(registrar: Registrar) {
       val channel = MethodChannel(registrar.messenger(), "facebookeventsplugin")
       logger = AppEventsLogger.newLogger(registrar.activeContext())
-
+        FacebookSdk.setAutoInitEnabled(true)
+        FacebookSdk.fullyInitialize()
       channel.setMethodCallHandler(FacebookeventspluginPlugin())
     }
 
